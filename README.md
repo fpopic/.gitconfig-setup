@@ -45,7 +45,7 @@ Steps:
       $ gpg --list-secret-keys --keyid-format LONG first.last@organisation1.com
       sec   rsa3072/<GPG KEY ID IS HERE> 2022-03-03 [SC]
             5A233D97F169400541080D50D58FC20EB4027CXX
-      uid                 [ultimate] first last <first.lastorganisation1.com>
+      uid                 [ultimate] first last <first.last@organisation1.com>
       ssb   rsa3072/560358F2315DB6XX 2022-03-03 [E]
       ```
 
