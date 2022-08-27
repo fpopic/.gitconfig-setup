@@ -50,7 +50,27 @@ Steps:
       ```
 
 3. Set up `~/.gitconfig` so that it automatically picks up your git config based on the folder prefix
-  - `~/.gitconfig` (we suggest to follow folder paths: `~/Projects/gitlab/my-organisation1` and `~/Projects/github/my-organisation2` for all cloned repositories)
+  - We suggest to follow folder paths for all git repositories
+    ```shell
+    ~/Projects
+    ├── github
+    │   ├── my-organisation1
+    │   │   ├── repo-1
+    │   │   └── ...
+    │   └── my-organisation2
+    │       ├── repo-2
+    │       └── ...
+    ├── gitlab
+    │   └── my-organisation3
+    │       ├── repo-3
+    │       └── ...
+    ├── bitbucket
+    │   └── my-organisation4
+    │       ├── repo-4
+    │       └── ...
+    ...
+    ```
+  - `~/.gitconfig` 
     ```ini
     [commit]
     gpgsign = true
