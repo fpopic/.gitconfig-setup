@@ -9,13 +9,13 @@ Steps:
 1. Generate new [SSH private key(s)](https://docs.gitlab.com/ee/user/ssh.html#generate-an-ssh-key-pair)
     - Generating a private key with a **passphrase** is a requirement on Mac :warning:
       ```shell
-      $ ssh-keygen -t rsa -b 4096 -C "your@gitlab.email" -f ~/.ssh/id_rsa_gitlab
-      $ pbcopy ~/.ssh/id_rsa_gitlab.pub
-      $ open https://gitlab.com/-/profile/keys
-
       $ ssh-keygen -t rsa -b 4096 -C "your@github.email" -f ~/.ssh/id_rsa_github
       $ pbcopy ~/.ssh/id_rsa_github.pub
       $ open https://github.com/settings/keys
+  
+      $ ssh-keygen -t rsa -b 4096 -C "your@gitlab.email" -f ~/.ssh/id_rsa_gitlab
+      $ pbcopy ~/.ssh/id_rsa_gitlab.pub
+      $ open https://gitlab.com/-/profile/keys
       ```
     - [Make keys "persistent"](https://unix.stackexchange.com/a/560404/171941) automatically loaded after Mac reboot
     - Update `~/.ssh/config` file:
@@ -24,13 +24,13 @@ Steps:
           UseKeychain yes
           AddKeysToAgent yes
           IgnoreUnknown UseKeychain
-
-      Host gitlab.com
-          identityfile = ~/.ssh/id_rsa_gitlab
-          user = git
-
+      
       Host github.com
           identityfile = ~/.ssh/id_rsa_github
+          user = git
+          
+      Host gitlab.com
+          identityfile = ~/.ssh/id_rsa_gitlab
           user = git
       ```
     - For GitHub make sure you authorized your ssh key with [your organization via SSO](https://docs.github.com/en/enterprise-cloud@latest/authentication/authenticating-with-saml-single-sign-on/authorizing-an-ssh-key-for-use-with-saml-single-sign-on)
@@ -75,30 +75,45 @@ Steps:
     [commit]
     gpgsign = true
 
-    [includeIf "gitdir:~/Projects/gitlab/my-organisation1/"]
-    path = ~/.gitconfig-gitlab-my-organisation1
+    [includeIf "gitdir:~/Projects/github/my-organisation1/"]
+    path = ~/.gitconfig-github-my-organisation1
 
-    [includeIf "gitdir:~/Projects/github/my-organisation2/"]
-    path = ~/.gitconfig-github-my-organisation2
+    [includeIf "gitdir:~/Projects/gitlab/my-organisation3/"]
+    path = ~/.gitconfig-gitlab-my-organisation3
     ```
 
-  - `~/.gitconfig-gitlab-my-organisation1`
+  - `~/.gitconfig-github-my-organisation1`
     ```ini
     [user]
     email = first.last@organisation1.com
-    name = your-gitlab-username
-    signingkey = your GPG key ID
-    ```
-
-  - `~/.gitconfig-github-my-organisation2`
-    ```ini
-    [user]
-    email = first.last@organisation2.com
     name = your-github-username
     signingkey = your GPG key ID
     ```
 
+  - `~/.gitconfig-gitlab-my-organisation3`
+    ```ini
+    [user]
+    email = first.last@organisation3.com
+    name = your-gitlab-username
+    signingkey = your GPG key ID
+    ```
+
 4. Make sure everything works by cloning some repository using git ssh protocol
+
+5. Read variables from respective paths
+    ```shell
+    $ cd ~/Projects/github/my-organisation1/repo-1 on main
+    $ git config --show-origin --get user.name
+    
+    file:~/.gitconfig-github-my-organisation1 your-github-username
+    ```
+    
+    ```shell
+    $ cd ~/Projects/gitlab/my-organisation3/repo-3 on main
+    $ git config --show-origin --get user.name
+
+    file:~/.gitconfig-gitlab-my-organisation3 your-gitlab-username
+    ```
 
 ## Troubleshooting
 
