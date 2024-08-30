@@ -29,7 +29,7 @@ Steps:
           user = git
           HostName = github.com
           identityfile = ~/.ssh/id_org1_github
-          IdentitiesOnly yes           
+          identitiesonly yes           
 
       Host org3-gitlab
           HostName = gitlab.com
