@@ -126,6 +126,13 @@ Steps:
 
     file:~/.gitconfig-gitlab-my-organisation3 your-gitlab-username
     ```
+1.1 If you made changes to repos with an existing .git/config, then you need to remove it
+```
+rm .git/config
+git init
+# Check if change is there
+git config --show-origin --get user.name
+```
     
 1. If you get the error: `gpg failed to sign the data` try running `$ export GPG_TTY=$(tty)` before committing and add it to your `~/.zshrc` config if it helped
     ```shell
